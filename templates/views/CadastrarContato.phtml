@@ -4,7 +4,7 @@
     <div class="container text-center">
       <div class="row align-items-start">
         <div class="col" name="col1">
-          <form method="post" action="/pessoa/cadastrarPessoa/save">
+          <form method="post" action="/salvar-pessoa">
             <?php if (!isset($pessoa)) : ?>
               <div class="input-group mb-3" style="width:40%">
                 <span class="input-group-text" id="inputGroup-sizing-default">Nome:</span>
@@ -30,7 +30,7 @@
             </button>
           </form>
           <?php if (isset($pessoa->id)) : ?>
-            <form method="post" action="/pessoa/cadastrarPessoa/cadastrarContato/save">
+            <form method="post" action="/salvar-contato">
               <div style="padding-top:10px; width:95%">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="tipoContato" name="tipoContato" placeholder="Email, Telefone, Whatsapp">
@@ -67,9 +67,9 @@
                       <?= $item->descricao ?>
                     </td>
                     <td>
-                      <a href="/pessoa/excluirContato?id=<?= $item->id ?>&id_pessoa=<?= $item->id_pessoa ?>" class='btn btn-danger'>
-                        Remover Contato
-                      </a>
+                        <a class='btn btn-danger' href="/excluir-contato/<?= $item->id ?>/<?= $item->id_pessoa ?>">
+                          Remover Contato
+                        </a>
                     </td>
                   </tr>
                 <?php endforeach ?>

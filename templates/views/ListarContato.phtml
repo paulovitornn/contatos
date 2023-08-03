@@ -21,19 +21,19 @@
           <?= $item->nome ?>
         </td>
         <td>
-          <a class='btn btn-dark' href="cadastrarPessoa?id=<?= $item->id ?>">
+          <a class='btn btn-dark' href="cadastrar-pessoa?id=<?= $item->id ?>">
             Editar/Detalhes
           </a>
         </td>
         <td>
-          <a href="/pessoa/delete?id=<?= $item->id ?>" class='btn btn-danger'>
+          <a href="/excluir-pessoa/<?= $item->id ?>" class='btn btn-danger'>
             Excluir
           </a>
         </td>
       </tr>
     <?php endforeach ?>
 
-    <?php if (count($listaPessoas->listaPessoas) == 0) : ?>
+    <?php if (count($pessoas) == 0) : ?>
       <tr>
         <td colspan="5">Nenhum registro encontrado.</td>
       </tr>

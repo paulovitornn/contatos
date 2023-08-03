@@ -1,6 +1,7 @@
 <?php
 namespace Dao;
 use \PDO;
+use Model\Contato;
 
 class ContatoDao
 {

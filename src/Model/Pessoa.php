@@ -9,20 +9,17 @@ class Pessoa
     public $id, $nome;
     public $contatos = [];
 
-    public function salvarPessoa()
+    public function salvarPessoa(Pessoa $pessoa)
     {
         try {
             $dao = new PessoaDao();
 
-            if (empty($this->id)) {
-                $idPessoa = $dao->insert($this);
-                return $idPessoa;
-            } else {
-                $idPessoa = $dao->update($this);
-                return $idPessoa;
+            if (!$pessoa->id) {
+                return $dao->insert($pessoa);
             }
-        } catch (\PDOException $e) {
-            throw new \RuntimeException('Erro ao salvar contato: ' . $e->getMessage());
+            return $dao->update($this);
+        } catch (\Exception $e) {
+            throw new \Exception('Erro ao salvar contato: ' . $e->getMessage());
         }
     }
 

@@ -11,7 +11,7 @@ class PessoaController
 
     public function listarContatos()
     {
-        try { //View/Contatos/ListaContato.php
+        try { 
             $listaPessoas = new Pessoa();
             return $listaPessoas->getAllPessoas();
         } catch (\Exception $e) {
@@ -19,7 +19,7 @@ class PessoaController
         }
     }
 
-    public static function retornaPessoa($id)
+    public function retornaPessoa($id)
     {
         try {
             if(!$id){
@@ -38,57 +38,54 @@ class PessoaController
         }
     }
 
-    public static function savePessoa()
+    public function salvarPessoa(\stdClass $params)
     {
         try {
             $pessoa = new Pessoa();
+            
+            if(property_exists($params, 'id')){
+                $pessoa->id =  $params->id;
+            }
+            $pessoa->nome = $params->nome;
 
-            $pessoa->id =  $_POST['id'];
-            $pessoa->nome = $_POST['nome'];
-
-            $idPessoa =  $pessoa->salvarPessoa();
-
-            header("Location: /cadastrarPessoa?id=" . $idPessoa);
-        } catch (\PDOException $e) {
-            throw new \RuntimeException('Erro ao tentar cadastrar pessoa: ' . $e->getMessage());
+            return $pessoa->salvarPessoa($pessoa);
+            
+        } catch (\Exception $e) {
+            throw new \Exception('Erro ao tentar cadastrar pessoa: ' . $e->getMessage());
         }
     }
 
-    public static function deletePessoa()
+    public function excluirPessoa($id)
     {
         try {
             $pessoa = new Pessoa();
-            $pessoa->deletePessoa((int) $_GET['id']);
-
-            header("Location: /listarContatos");
-        } catch (\PDOException $e) {
-            throw new \RuntimeException('Erro ao tentar excluir pessoa: ' . $e->getMessage());
+            $pessoa->deletePessoa($id);
+        } catch (\Exception $e) {
+            throw new \Exception('Erro ao tentar excluir pessoa: ' . $e->getMessage());
         }
     }
 
-    public static function salvarContato()
+    public function salvarContato(\stdClass $params)
     {
         try {
             $contato = new Contato();
-            $contato->tipoContato = $_POST['tipoContato'];
-            $contato->descricao = $_POST['descrContato'];
-            $contato->id_pessoa = $_POST['id_pessoa'];
+            $contato->tipoContato = $params->tipoContato;
+            $contato->descricao = $params->descrContato;
+            $contato->id_pessoa = $params->id_pessoa;
             $contato->salvarContato();
-            header("Location: /cadastrarPessoa?id=" . $contato->id_pessoa);
-        } catch (\PDOException $e) {
-            throw new \RuntimeException('Erro ao tentar salvar contato: ' . $e->getMessage());
+            return $contato->id_pessoa;
+        } catch (\Exception $e) {
+            throw new \Exception('Erro ao tentar salvar contato: ' . $e->getMessage());
         }
     }
 
-    public static function deleteContato()
+    public function excluirContato($id)
     {
         try {
             $contato = new Contato();
-            $contato->deleteContato((int) $_GET['id']);
-
-            header("Location: /cadastrarPessoa?id=" . $_GET['id_pessoa']);
-        } catch (\PDOException $e) {
-            throw new \RuntimeException('Erro ao tentar excluir contato: ' . $e->getMessage());
+            $contato->deleteContato($id);
+        } catch (\Exception $e) {
+            throw new \Exception('Erro ao tentar excluir contato: ' . $e->getMessage());
         }
     }
 }

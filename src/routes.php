@@ -30,6 +30,34 @@ return function (App $app) {
         return $container->get('renderer')->render($response, 'index.phtml', $args);
     });
 
+    $app->post('/salvar-pessoa', function (Request $request, Response $response) use ($app){
+        $params = (object) $request->getParams();
+        $id = (new PessoaController)->salvarPessoa($params);
+        
+        return $response->withRedirect('/cadastrar-pessoa?id='.$id);
+        
+    });
+
+    $app->get('/excluir-pessoa/{id}', function (Request $request, Response $response, array $args) use ($app){
+        (new PessoaController)->excluirPessoa($args['id']);
+        
+        return $response->withRedirect('/listar-contatos');
+    });
+
+    $app->post('/salvar-contato', function (Request $request, Response $response) use ($app){
+        $params = (object) $request->getParams();
+        $idPessoa = (new PessoaController)->salvarContato($params);
+        
+        return $response->withRedirect('/cadastrar-pessoa?id='.$idPessoa);
+        
+    });
+
+    $app->get('/excluir-contato/{id}/{id_pessoa}', function (Request $request, Response $response, array $args) use ($app){
+        (new PessoaController)->excluirContato($args['id']);
+        
+        return $response->withRedirect('/cadastrar-pessoa?id='.$args['id_pessoa']);
+    });
+
     $app->get('/suportes-balanceados', function () {
         function colchetesValidos($entrada) {
             $pilha = []; // Aqui crio a pilha para armazenar os colchetes de abertura

@@ -14,8 +14,8 @@ class Contato
             if (!empty($this->tipoContato) && !empty($this->descricao) && !empty($this->id_pessoa)) {
                 $dao->insert($this);
             }
-        } catch (\PDOException $e) {
-            throw new \RuntimeException('Erro ao salvar contato: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception('Erro ao salvar contato: ' . $e->getMessage());
         }
     }
 
@@ -25,8 +25,8 @@ class Contato
             $dao = new ContatoDao();
             $contatos = $dao->getContatosByIdPessoa($id_pessoa);
             return $contatos;
-        } catch (\PDOException $e) {
-            throw new \RuntimeException('Erro ao obter contatos: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception('Erro ao obter contatos: ' . $e->getMessage());
         }
     }
 
@@ -35,8 +35,8 @@ class Contato
         try {
             $dao = new ContatoDao();
             $dao->deleteContato($id);
-        } catch (\PDOException $e) {
-            throw new \RuntimeException('Erro ao excluir contato: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception('Erro ao excluir contato: ' . $e->getMessage());
         }
     }
 
@@ -45,8 +45,8 @@ class Contato
         try {
             $dao = new ContatoDao();
             $dao->deleteTodosContatosByIdPessoa($id_pessoa);
-        } catch (\PDOException $e) {
-            throw new \RuntimeException('Erro ao excluir contatos: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception('Erro ao excluir contatos: ' . $e->getMessage());
         }
     }
 }

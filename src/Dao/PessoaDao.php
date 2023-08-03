@@ -31,9 +31,9 @@ class PessoaDao
     public function insert(Pessoa $pessoa)
     {
         try {
-            $sql = "INSERT INTO pessoa (nome) VALUES (?) ";
+            $sql = "INSERT INTO pessoa (nome) VALUES (:nome) ";
             $stmt = $this->con->prepare($sql);
-            $stmt->bindValue(1, $pessoa->nome);
+            $stmt->bindValue(':nome', $pessoa->nome);
     
             if ($stmt->execute()) {
                 return (int) $this->con->lastInsertId();
