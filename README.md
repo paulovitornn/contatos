@@ -33,4 +33,9 @@ $ composer start
 # na tela do prompt mostrará o endereço local para acessar o projeto.
 ```
 
+### A questão 1 suportes balanceados.
+Essa questão está implementada diretamente de forma simples dentro do arquivo /src/routes.php entre as linhas 62 e 89.
+
+
+
 
