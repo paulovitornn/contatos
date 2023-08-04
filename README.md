@@ -17,12 +17,12 @@ Replace `[my-app-name]` with the desired directory name for your new application
 
 To run the application in development, you can run these commands 
 
-	cd [my-app-name]
+	cd [contatos]
 	php composer.phar start
 	
 Or you can use `docker-compose` to run the app with `docker`, so you can run these commands:
 
-         cd [my-app-name]
+         cd [contatos]
 	 docker-compose up -d
 After that, open `http://0.0.0.0:8080` in your browser.
 
